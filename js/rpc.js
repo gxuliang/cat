@@ -34,24 +34,69 @@ function getRoot() {
      }
    }
 
+function updatelogin() {
+	//alert(request.readyState);
+	if (request.readyState == 4) {
+		if (request.status == 200) {
+			var response = request.responseText.split("|");
+	        var obj = jQuery.parseJSON(response[0].toString());
+	        if(obj.result.toString() == "true")
+	        {
+		        	$("#flogin").hide();
+					$("#mbody").show();
+				
+					
+					$(".tab_local").hide(); //Hide all content
+					$(".tab_usr").hide(); //Hide all usr
+					$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+					$(".tab_local:first").show(); //Show first tab content
+					$(".width_3_quarter").hide();
+					$(".width_full").hide();
+				
+				
+					$("#local").show();
+					$("#resOK").hide();
+	        }
+	        else
+	        {
+		        alert("login failed");
+	        }
+		}
+	}
+}
+
+function rpclogin(name,passwd) {
+	//var head = {id:11,method:"global.login",params:{version:"1.0",userName:name,password,passwd,clientType, "web",ipAddr:"127.0.0.1"}};
+	var params = {version:"1.0",userName:name,password:passwd,clientType:"web",ipAddr:"127.0.0.1"};
+	var head = {id:11,jsonrpc:"2.0",method:"global.login"};
+	head.params = params;
+	var encoded = $.toJSON( head );
+
+	//alert(encoded.toString());
+	
+	
+	var url = "cgi-bin/post.cgi";
+   //alert(url.toString());
+   request.open("POST", url, true);
+   request.onreadystatechange = updatelogin;
+   request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=gb2312");
+   var chr = "method=" + encoded.toString();
+   //alert(chr.toString());
+   request.send(chr.toString());
+	
+}
+
 function onLogin() {
 
-	$("#flogin").hide();
-	$("#mbody").show();
-
+	var username = document.getElementById("username").value;
+	var passwd = document.getElementById("password").value;
 	
-	$(".tab_local").hide(); //Hide all content
-	$(".tab_usr").hide(); //Hide all usr
-	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
-	$(".tab_local:first").show(); //Show first tab content
-	$(".width_3_quarter").hide();
-	$(".width_full").hide();
-
-
-	$("#local").show();
-	$("#resOK").hide();
+	//alert(username);
+	rpclogin(username,passwd);
 	
-	getRoot();
+	return;
+
+
 
 
 
@@ -62,6 +107,7 @@ function onLogout()
 {
 	$("#mbody").hide();
 	$("#flogin").show();
+	$("ul.tabs li:first").removeClass("active"); //Activate first tab
 	
 	
 }
