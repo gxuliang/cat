@@ -1,3 +1,10 @@
+/*xul add*/
+
+.vdview {
+height: 400px;
+width: 400px;	
+background: #F8F8F8;
+}
 /* Essentials */
 
 html, div, map, dt, isindex, form, header, aside, section, section, article, footer {  

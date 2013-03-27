@@ -1,5 +1,3 @@
-
-
 function getRoot() {
 	   var name = {id:1,jsonrpc:"2.0",method:"getroot"};
 	   var encoded = $.toJSON( name );
@@ -103,13 +101,59 @@ function onLogin() {
 }
 
 
-function onLogout()
-{
+function onLogout() {
 	$("#mbody").hide();
 	$("#flogin").show();
 	$("ul.tabs li:first").removeClass("active"); //Activate first tab
 	
 	
+}
+
+
+function updatecamconf() {
+	if (request.readyState == 4) {
+		if (request.status == 200) {
+			var response = request.responseText.split("|");
+	        var obj = jQuery.parseJSON(response[0].toString());
+	        //alert(obj);
+	        if(obj.result.toString() == "true")
+	        {
+		        var Brightness = obj.params.Encode.CamGlobal.Brightness;
+		        var Contrast = obj.params.Encode.CamGlobal.Contrast;
+		        var Chromaticity = obj.params.Encode.CamGlobal.Chromaticity;
+		        var Saturation = obj.params.Encode.CamGlobal.Saturation;
+		        //alert(Saturation);
+		        
+		        document.getElementById("Brightness").value = Brightness;
+		        document.getElementById("Contrast").value = Contrast;
+		        document.getElementById("Chromaticity").value = Chromaticity;
+				document.getElementById("Saturation").value = Saturation;
+
+
+	        }
+	     }
+
+	}
+}
+
+function ongetcamconf() {
+	var params = {name:"Encode"};
+	var head = {id:22,jsonrpc:"2.0",method:"configManager.getConfig"};
+	head.params = params;
+	var encoded = $.toJSON( head );
+
+	//alert(encoded.toString());
+	
+	
+	var url = "cgi-bin/post.cgi";
+   //alert(url.toString());
+   request.open("POST", url, true);
+   request.onreadystatechange = updatecamconf;
+   request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=gb2312");
+   var chr = "method=" + encoded.toString();
+   //alert(chr.toString());
+   request.send(chr.toString());
+
 }
 
 function onUpgrade(){

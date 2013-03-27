@@ -100,7 +100,7 @@
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.html">Website Admin</a></h1>
-			<h2 class="section_title">Dashboard</h2><div class="btn_view_site"><a href="http://www.medialoot.com">View Site</a></div>
+			<h2 class="section_title">Dashboard</h2><div class="btn_view_site" onclick="onLogout()"><a href="">Logout</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
@@ -119,6 +119,13 @@
 			<input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
 		</form>
 		<hr/>
+		<h3>摄像机设置</h3>
+		<ul class="toggle">
+			<li class="icn_new_article"><a href="#view">预览</a></li>
+			<li class="icn_edit_article" onclick="ongetcamconf()"><a href="#camconf">摄像头属性</a></li>
+			<li class="icn_categories"><a href="#">视频</a></li>
+			<li class="icn_tags"><a href="#">音频</a></li>
+		</ul>
 		<h3>普通设置</h3>
 		<ul class="toggle">
 			<li class="icn_new_article"><a href="#local">本机设置</a></li>
@@ -222,6 +229,7 @@
 			<div id="tab2" class="tab_local">
 			<fieldset>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><li/></td> 
     				<td>日期格式</td> 
@@ -272,6 +280,7 @@
 			
 			<fieldset>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><input type="checkbox"></td> 
     				<td>NTP对时</td> 
@@ -327,6 +336,7 @@
 			<header><h3>固件升级</h3></header>
 			<table class="tablesorter" cellspacing="0"> 
 			<form id = "submitForm" enctype="multipart/form-data" action="cgi-bin/post.cgi", method="post" onsubmit="return operate();">
+			<tbody>
 				<tr> 
    					<td><li/></td> 
     				<td></td> 
@@ -374,10 +384,59 @@
 
 		<div class="clear"></div>
 
+<article class="module width_full" id="view">
+			<header><h3 class="tabs_involved">预览</h3>
+			<ul class="tabs">
+   			<li><a href="">主码流</a></li>
+    		<li><a href="">辅码流</a></li>
+    		</ul>
+			</header>
+			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
+				<tr> 
+   					<div class="vdview">no video</div>
+				</tr>
+			</tbody>
+			</table>
+		</article>
+	<div class="clear"></div>
+
+<article class="module width_full" id="camconf">
+			<header><h3>摄像头属性</h3>
+			</header>
+			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
+				<tr> 
+    				<td>亮度</td> 
+    				<td><input id="Brightness" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+				</tr> 
+				<tr> 
+   					<td>对比度</td> 
+    				<td><input id="Contrast" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>	
+   				<tr> 
+   					<td>色度</td> 
+    				<td><input id="Chromaticity" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>	
+   				<tr> 
+   					<td>饱和度</td> 
+    				<td><input id="Saturation" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>					
+			</tbody>
+			</table>
+		</article>
+
+
+		<div class="clear"></div>	
 		
 		<article class="module width_full" id="connect">
 			<header><h3>连接</h3></header>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><li/></td> 
     				<td>最大连接数</td> 
@@ -391,6 +450,7 @@
     				<td><input type="text" style="width:92%;" value="37777"></td> 
    					<td>（1025~65535）</td> 
    					<td></td> 
+				</tr>	
 				<tr> 
    					<td><li/></td> 
     				<td>UDP端口</td> 
@@ -428,6 +488,7 @@
 		<article class="module width_full" id="pppoe">
 			<header><h3>PPPoE</h3></header>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><input type="checkbox"></td> 
     				<td>PPPoE开启</td> 
@@ -478,6 +539,7 @@
 		<article class="module width_full" id="ddns">
 			<header><h3>DDNS</h3></header>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><input type="checkbox"></td> 
     				<td>服务器类型</td> 
@@ -554,6 +616,7 @@
 		<article class="module width_full" id="tcpip">
 			<header><h3>TCP/IP</h3></header>
 			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
 				<tr> 
    					<td><li/></td> 
     				<td>主机名称</td> 
