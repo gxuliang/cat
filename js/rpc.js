@@ -279,7 +279,7 @@ function onsetviconf() {
 	var video=[];
 	video[0] = {Video:fps};
 	var mainformat;
-	mainformat = {Mainformat:video};
+	mainformat = {MainFormat:video};
 	//var table = ;
 	//var encoded = $.toJSON( mainformat );
 	//alert(encoded.toString());
