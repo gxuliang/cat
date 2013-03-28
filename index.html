@@ -87,8 +87,8 @@
 <div id="flogin">
     <h1 id= "h1login">Log In</h1>
     <fieldset id="inputs">
-        <input id="username" type="text" placeholder="Username" autofocus required>   
-        <input id="password" type="password" placeholder="Password" required>
+        <input id="username" type="text" placeholder="Username" autofocus required onkeypress="keyevent(event)">   
+        <input id="password" type="password" placeholder="Password" required onkeypress="keyevent(event)">
     </fieldset>
     <fieldset id="actions">
         <input type="submit" id="submit" value="Log in" onclick="onLogin()">
@@ -123,7 +123,7 @@
 		<ul class="toggle">
 			<li class="icn_new_article"><a href="#view">预览</a></li>
 			<li class="icn_edit_article" onclick="ongetcamconf()"><a href="#camconf">摄像头属性</a></li>
-			<li class="icn_categories"><a href="#">视频</a></li>
+			<li class="icn_categories"><a href="#videoconf" onclick="ongetviconf()">视频</a></li>
 			<li class="icn_tags"><a href="#">音频</a></li>
 		</ul>
 		<h3>普通设置</h3>
@@ -168,7 +168,7 @@
 		
 		<article class="module width_3_quarter" id="local">
 		<header><h3 class="tabs_involved">本机设置</h3>
-		<ul class="tabs" id=tab_local>
+		<ul class="tabs">
    			<li><a href="#tab1">基本设置</a></li>
     		<li><a href="#tab2">时间设置</a></li>
 		</ul>
@@ -330,6 +330,260 @@
 		
 		
 		<div class="clear"></div>
+		
+		
+		
+	<article class="module width_full" id="videoconf">
+		<header><h3 class="tabs_involved">视频</h3>
+		<ul class="tabs" id="vitab">
+   			<li><a href="#vitab1">视频码流</a></li>
+    		<li><a href="#vitab2">图片码流</a></li>
+		</ul>
+		</header>
+
+		<div class="tab_container">
+			<div id="vitab1" class="tab_local">
+			<table class="tablesorter" cellspacing="0"> 
+			<tbody> 
+				<tr> 
+    				<td><li>主码流</li></td> 
+    				<td/>
+    				<td/>
+    				<td><li>子码流</li></td> 
+    				<td><input type="checkbox" onchange="exvdisable()" id="evable" checked=true>使能</td>
+   				</tr> 
+				<tr>  
+    				<td>码流类型</td> 
+    				<td>
+	    				<select id = "mvitype" style="width:160px;">
+							<option value="ordinary">普通</option>
+							<option value="alarm">报警</option>
+						</select>
+    				</td> 
+    				<td/>
+    				<td>码流类型</td> 
+    				<td>
+	    				<select id = "evitype" style="width:160px;">
+							<option value="ordinary">普通</option>
+							<option value="alarm">报警</option>
+						</select>
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>编码模式</td> 
+    				<td>
+	    				<select id = "mvtype" style="width:160px;">
+							<option value="H.264B">H.264B</option>
+							<option value="MJPEG">MJPEG</option>
+						</select>
+    				</td> 
+    				<td/>
+    				<td>编码模式</td> 
+    				<td>
+	    				<select id = "evtype" style="width:160px;">
+							<option value="H.264B">H.264B</option>
+							<option value="MJPEG">MJPEG</option>
+						</select>
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>分辨率</td> 
+    				<td>
+	    				<select id = "mpx" style="width:160px;">
+							<option value="1080P">1080P(1920*1080)</option>
+							<option value="720P">720P(1280*720)</option>
+						</select>
+    				</td> 
+    				<td/>
+    				<td>分辨率</td> 
+    				<td>
+	    				<select id = "epx" style="width:160px;">
+							<option value="D1">D1(704*576)</option>
+							<option value="VGA">VGA(640*480)</option>
+						</select>
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>帧率</td> 
+    				<td>
+	    				<select id = "mfps" style="width:160px;">
+							
+						</select>
+    				</td> 
+    				<td/>
+    				<td>帧率</td> 
+    				<td>
+	    				<select id = "efps" style="width:160px;">
+							
+						</select>
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>码流控制</td> 
+    				<td>
+	    				<select id = "" style="width:160px;">
+							<option value="">固定码流</option>
+							<option value="">动态码流</option>
+						</select>
+    				</td> 
+    				<td/>
+    				<td>码流控制</td> 
+    				<td>
+	    				<select id = "" style="width:160px;">
+							<option value="">固定码流</option>
+							<option value="">动态码流</option>
+						</select>
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>码流大小</td> 
+    				<td>
+	    				<input id="mstream" type="text" style="width:160px;" value="1024">
+    				</td> 
+    				<td/>
+    				<td>码流大小</td> 
+    				<td>
+	    				<input id="estream" type="text" style="width:160px;" value="1024">
+    				</td> 
+    			
+				</tr>
+				<tr>  
+    				<td>I帧间隔</td> 
+    				<td>
+	    				<input id="mGOP" type="text" style="width:160px;" value="50">
+    				</td> 
+    				<td/>
+    				<td>I帧间隔</td> 
+    				<td>
+	    				<input id="eGOP" type="text" style="width:160px;" value="50">
+    				</td> 
+    			
+				</tr>
+				<tr> 
+   					<td></td> 
+    				<td></td> 
+    				<td></td> 
+    				<td></td> 
+    				<td>
+	   					<input type="submit" value="恢复默认">
+	   					<input type="submit" value="确定" class="alt_btn" onclick="onsetviconf()">
+	   					<input onclick="ongetviconf()" type="submit" value="刷新">
+    				</td> 
+				</tr>  
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+			
+			<div id="vitab2" class="tab_local">
+			<fieldset>
+			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
+				<tr> 
+   					<td><li/></td> 
+    				<td>日期格式</td> 
+    				<td>
+    					<select style="width:92%;">
+							<option>年-月-日</option>
+							<option>日-月-年</option>
+						</select>
+    				</td> 
+   					<td></td> 
+   					<td></td> 
+				</tr> 
+				<tr> 
+   					<td><li/></td> 
+   					<td>时间格式</td>
+    				<td>
+    					<select style="width:92%;">
+							<option>24-小时制</option>
+							<option>12-小时制</option>
+						</select>
+    				</td> 
+   					<td></td> 
+   					<td></td> 
+				<tr> 
+   					<td><li/></td> 
+    				<td>时区</td> 
+    				<td>
+    					<select style="width:92%;">
+							<option>GMT+08:00</option>
+							<option>GMT+09:00</option>
+						</select>
+    				</td>
+   					<td></td> 
+   					<td></td> 
+				</tr>
+				<tr> 
+   					<td><li/></td> 
+    				<td>系统时间</td> 
+    				<td><input type="text" style="width:92%;" value="2012-12-06"></td> 
+    				<td><input type="text" style="width:92%;" value="23:00"></td> 
+    				<td>	   					
+    					<input type="submit" value="同步PC">
+    				</td> 
+				</tr> 
+			</tbody> 
+			</table>
+			</fieldset>
+			
+			<fieldset>
+			<table class="tablesorter" cellspacing="0"> 
+			<tbody>
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>NTP对时</td> 
+    				<td></td> 
+   					<td></td> 
+   					<td></td> 
+				</tr> 
+				<tr> 
+   					<td><li/></td> 
+   					<td>NTP服务器</td>
+    				<td><input type="text" style="width:92%;" value="clock.isc.org"></td> 
+   					<td></td> 
+   					<td></td> 
+				<tr> 
+   					<td><li/></td> 
+    				<td>端口</td> 
+    				<td><input type="text" style="width:92%;" value="37"></td> 
+   					<td></td> 
+   					<td></td> 
+				</tr>
+				<tr> 
+   					<td><li/></td> 
+    				<td>更新周期</td> 
+    				<td><input type="text" style="width:92%;" value="10"></td> 
+   					<td>分钟（0~30）</td> 
+   					<td></td> 
+				</tr> 
+   					<td></td> 
+   					<td></td> 
+   					<td></td> 
+   					<td></td> 
+    				<td>
+	   					<input type="submit" value="恢复默认">
+	   					<input type="submit" value="确定" class="alt_btn">
+	   					<input type="submit" value="取消">
+    				</td> 
+				</tr> 
+			</tbody> 
+			</table>
+			</fieldset>
+			
+			</div><!-- end of #tab2 -->
+			
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+		
+		
+		
+		<div class="clear"></div>
+
 		
 		
 		<article class="module width_full" id="upgrade">

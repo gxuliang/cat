@@ -1,3 +1,5 @@
+var Session;
+
 function getRoot() {
 	   var name = {id:1,jsonrpc:"2.0",method:"getroot"};
 	   var encoded = $.toJSON( name );
@@ -40,6 +42,8 @@ function updatelogin() {
 	        var obj = jQuery.parseJSON(response[0].toString());
 	        if(obj.result.toString() == "true")
 	        {
+	        		Session = obj.session;
+	        		//alert(Session);
 		        	$("#flogin").hide();
 					$("#mbody").show();
 				
@@ -138,7 +142,7 @@ function updatecamconf() {
 
 function ongetcamconf() {
 	var params = {name:"Encode"};
-	var head = {id:22,jsonrpc:"2.0",method:"configManager.getConfig"};
+	var head = {id:22,jsonrpc:"2.0",method:"configManager.getConfig",session:Session};
 	head.params = params;
 	var encoded = $.toJSON( head );
 
@@ -156,6 +160,175 @@ function ongetcamconf() {
 
 }
 
+function rpcgetconfig(nm, fun) {
+	var params = {name:nm};
+	var head = {id:22,jsonrpc:"2.0",method:"configManager.getConfig",session:Session};
+	head.params = params;
+	var encoded = $.toJSON( head );
+
+	//alert(encoded.toString());
+	
+	
+	var url = "cgi-bin/post.cgi";
+   //alert(url.toString());
+   request.open("POST", url, true);
+   request.onreadystatechange = fun;
+   request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=gb2312");
+   var chr = "method=" + encoded.toString();
+   //alert(chr.toString());
+   request.send(chr.toString());	
+}
+
+function set_selectop(id, value) {
+    for(var i = 0; i < document.getElementById(id).options.length; i++)
+    {
+        if(document.getElementById(id).options[i].value == value)
+        {	
+	        document.getElementById(id).options[i].selected = true;
+	        return;
+        }
+    }
+    alert(id+"=error");	
+}
+
+function updateviconf() {
+	if (request.readyState == 4) {
+		if (request.status == 200) {
+			var response = request.responseText.split("|");
+	        var obj = jQuery.parseJSON(response[0].toString());
+	        //alert(obj);
+	        if(obj.result.toString() == "true")
+	        {
+	        	//编码模式
+		        var mvitype = obj.params.Encode.MainFormat[0].Video.Compression;
+		        var evitype = obj.params.Encode.ExtraFormat[0].Video.Compression;
+		        //分辨率
+		        var mpx = obj.params.Encode.MainFormat[0].Video.PX;
+		        var epx = obj.params.Encode.ExtraFormat[0].Video.PX;
+		        //
+		        var mfps = obj.params.Encode.MainFormat[0].Video.FPS;
+		        var efps = obj.params.Encode.ExtraFormat[0].Video.FPS;
+		        //码流控制
+		        var mstreamctrl = obj.params.Encode.MainFormat[0].Video.StreamMode;
+		        var estreamctrl = obj.params.Encode.ExtraFormat[0].Video.StreamMode;
+		        //码流大小
+		        var mstream = obj.params.Encode.MainFormat[0].Video.Stream;
+		        var estream = obj.params.Encode.ExtraFormat[0].Video.Stream;
+		        //I帧间隔
+		        var mGOP = obj.params.Encode.MainFormat[0].Video.GOP;
+		        var eGOP = obj.params.Encode.ExtraFormat[0].Video.GOP;
+		       
+		        set_selectop("mvtype", mvitype);
+		        set_selectop("evtype", evitype);
+		        set_selectop("mpx", mpx);
+		        set_selectop("epx", epx);
+		        set_selectop("mfps", mfps);
+		        set_selectop("efps", efps);
+		        document.getElementById("mstream").value = mstream;
+		        document.getElementById("estream").value = estream;
+		        document.getElementById("mGOP").value = mGOP;
+				document.getElementById("eGOP").value = eGOP;
+				
+	        }
+	     }
+
+	}	
+}
+
+function ongetviconf() {
+	
+	rpcgetconfig("Encode", updateviconf);
+}
+
+function updatesetviconf() {
+	if (request.readyState == 4) {
+		if (request.status == 200) {
+			var response = request.responseText.split("|");
+	        var obj = jQuery.parseJSON(response[0].toString());
+	        alert(obj);
+	        if(obj.result.toString() == "true")
+	        {
+	        
+	        }
+	     }
+
+	}		
+}
+
+function rpcsetconfig(nm, jsonobj,fun) {
+	var params = {name:nm, table: jsonobj};
+	var head = {id:23,jsonrpc:"2.0",method:"configManager.setConfig",session:Session};
+	head.params = params;
+	var encoded = $.toJSON( head );
+
+	alert(encoded.toString());
+	//return;
+	
+	var url = "cgi-bin/post.cgi";
+   //alert(url.toString());
+   request.open("POST", url, true);
+   request.onreadystatechange = fun;
+   request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=gb2312");
+   var chr = "method=" + encoded.toString();
+   //alert(chr.toString());
+   request.send(chr.toString());	
+}
+
+function onsetviconf() {
+	var fps ={FPS:5};
+	var video=[];
+	video[0] = {Video:fps};
+	var mainformat;
+	mainformat = {Mainformat:video};
+	//var table = ;
+	//var encoded = $.toJSON( mainformat );
+	//alert(encoded.toString());
+
+	rpcsetconfig("Encode", mainformat, updatesetviconf);
+}
+
+$(document).ready(function() 
+    { 
+      	 var TvMode = "PAL";
+	var fps;
+	if(TvMode == "PAL")
+	{
+		fps = 25;
+	}
+	else
+	{
+		fps = 30;
+	}
+	var obj1 = document.getElementById('mfps');   
+	var obj2 = document.getElementById('efps');  
+	for(var i = fps; i > 0; i--)
+	{
+		obj1.options.add(new Option(i,i),false,false); //这个兼容IE与firefox   
+		obj2.options.add(new Option(i,i),false,false);
+	}
+	   	 } 
+);
+
+
+function keyevent(e) {
+	var keynum;
+
+	
+	if(window.event) // IE
+	{
+		keynum = e.keyCode;
+	}
+	else if(e.which) // Netscape/Firefox/Opera
+	{
+		keynum = e.which;
+	}
+	
+	//alert(keynum);
+	if(keynum == 13)//回车
+	{
+		onLogin();
+	}
+}
 function onUpgrade(){
 	var fname = document.getElementById("filename").value;
 	var url = "cgi-bin/post.cgi";
