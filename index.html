@@ -355,7 +355,7 @@
 				<tr>  
     				<td>码流类型</td> 
     				<td>
-	    				<select id = "mvitype" style="width:160px;">
+	    				<select id = "mvitype" style="width:160px;" disabled="true">
 							<option value="ordinary">普通</option>
 							<option value="alarm">报警</option>
 						</select>
@@ -363,7 +363,7 @@
     				<td/>
     				<td>码流类型</td> 
     				<td>
-	    				<select id = "evitype" style="width:160px;">
+	    				<select id = "evitype" style="width:160px;" disabled="true">
 							<option value="ordinary">普通</option>
 							<option value="alarm">报警</option>
 						</select>
@@ -425,17 +425,17 @@
 				<tr>  
     				<td>码流控制</td> 
     				<td>
-	    				<select id = "" style="width:160px;">
-							<option value="">固定码流</option>
-							<option value="">动态码流</option>
+	    				<select id = "mStreamMode" style="width:160px;">
+							<option value="Fixed">固定码流</option>
+							<option value="Dynamic">动态码流</option>
 						</select>
     				</td> 
     				<td/>
     				<td>码流控制</td> 
     				<td>
-	    				<select id = "" style="width:160px;">
-							<option value="">固定码流</option>
-							<option value="">动态码流</option>
+	    				<select id = "eStreamMode" style="width:160px;">
+							<option value="Fixed">固定码流</option>
+							<option value="Dynamic">动态码流</option>
 						</select>
     				</td> 
     			
@@ -678,6 +678,13 @@
    				<tr> 
    					<td>饱和度</td> 
     				<td><input id="Saturation" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>	
+   				<tr> 
+   					<td>slider</td> 
+    				<td><input id="defaultSlider" type="range" min="0" max="500" />
+	    				<p class="note">Current value: <span id="currentValue">0</span></p>
+    				</td> 
    					<td></td> 
    				</tr>					
 			</tbody>

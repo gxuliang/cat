@@ -191,6 +191,17 @@ function set_selectop(id, value) {
     alert(id+"=error");	
 }
 
+function get_selectop(id) {
+	for(var i = 0; i < document.getElementById(id).options.length; i++)
+	{
+		if(document.getElementById(id).options[i].selected == true)
+		{
+			return document.getElementById(id).options[i].value;
+		}
+	}
+	return null;
+}
+
 function updateviconf() {
 	if (request.readyState == 4) {
 		if (request.status == 200) {
@@ -224,6 +235,8 @@ function updateviconf() {
 		        set_selectop("epx", epx);
 		        set_selectop("mfps", mfps);
 		        set_selectop("efps", efps);
+		        set_selectop("mStreamMode", mstreamctrl);
+		        set_selectop("eStreamMode", estreamctrl);
 		        document.getElementById("mstream").value = mstream;
 		        document.getElementById("estream").value = estream;
 		        document.getElementById("mGOP").value = mGOP;
@@ -245,10 +258,10 @@ function updatesetviconf() {
 		if (request.status == 200) {
 			var response = request.responseText.split("|");
 	        var obj = jQuery.parseJSON(response[0].toString());
-	        alert(obj);
+	        //alert(obj);
 	        if(obj.result.toString() == "true")
 	        {
-	        
+	        	alert("ok");
 	        }
 	     }
 
@@ -261,7 +274,7 @@ function rpcsetconfig(nm, jsonobj,fun) {
 	head.params = params;
 	var encoded = $.toJSON( head );
 
-	alert(encoded.toString());
+	//alert(encoded.toString());
 	//return;
 	
 	var url = "cgi-bin/post.cgi";
@@ -275,16 +288,49 @@ function rpcsetconfig(nm, jsonobj,fun) {
 }
 
 function onsetviconf() {
-	var fps ={FPS:5};
-	var video=[];
-	video[0] = {Video:fps};
+	var c_mvitype = get_selectop('mvitype'); 
+	var c_mvtype = get_selectop('mvtype'); 
+	var c_mpx = get_selectop('mpx'); 
+	var c_mfps = get_selectop('mfps'); 
+	var c_mStreamMode = get_selectop('mStreamMode'); 
+	var c_mstream = document.getElementById('mstream').value; 
+	var c_mGOP = document.getElementById('mGOP').value; 
+	
+	
+	//alert(c_mGOP);
+	var m_js = {type:c_mvitype, Compression:c_mvtype, PX:c_mpx, FPS:c_mfps, GOP:c_mGOP, StreamMode:c_mStreamMode, Stream:c_mstream};
+
+	//var fps ={FPS:5};
+	var mvideo=[];
+	mvideo[0] = {Video:m_js};
 	var mainformat;
-	mainformat = {MainFormat:video};
+	
+	mainformat = {MainFormat:mvideo};
+	//alert(mainformat.toString());
 	//var table = ;
 	//var encoded = $.toJSON( mainformat );
 	//alert(encoded.toString());
 
-	rpcsetconfig("Encode", mainformat, updatesetviconf);
+	//rpcsetconfig("Encode", mainformat, updatesetviconf);
+	//return;
+	
+	var c_eenable = document.getElementById('evable').checked;  
+	var c_evitype = get_selectop('evitype'); 
+	var c_evtype = get_selectop('evtype'); 
+	var c_epx = get_selectop('epx'); 
+	var c_efps = get_selectop('efps'); 
+	var c_eStreamMode = get_selectop('eStreamMode'); 
+	var c_estream = document.getElementById('estream').value; 
+	var c_eGOP = document.getElementById('eGOP').value; 
+	var e_js = {type:c_evitype, Compression:c_evtype, PX:c_epx, FPS:c_efps, GOP:c_eGOP, StreamMode:c_eStreamMode, Stream:c_estream};
+	
+	var evideo=[];
+	evideo[0] = {Video:e_js,VideoEnable:c_eenable};
+	var extraformat;
+	extraformat = {ExtraFormat:evideo};
+	
+	var all = {MainFormat:mvideo, ExtraFormat:evideo};
+	rpcsetconfig("Encode", all, updatesetviconf);
 }
 
 $(document).ready(function() 

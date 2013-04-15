@@ -1,12 +1,12 @@
 function exvdisable() {
 	//alert(document.getElementById("evable").checked);
-	if(0)//(document.getElementById("evable").checked == false)
+	if(document.getElementById("evable").checked == false)
 	{
-		document.getElementById("evitype").disabled = "disabled";
+		//document.getElementById("evitype").disabled = "disabled";
 	}
 	else
 	{
-		document.getElementById("evitype").disabled = !document.getElementById("evitype").disabled;
+		//document.getElementById("evitype").disabled = !document.getElementById("evitype").disabled;
 	}
 }
 
