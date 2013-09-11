@@ -1,53 +1,10 @@
 /*xul add*/
 
 .vdview {
-height: 100px;
-width: 100px;	
+height: 400px;
+width: 400px;	
 background: #F8F8F8;
 }
-
-
-
-.marginleft{
-	margin-left:2px;
-	margin-bottom:3px;
-	
-		}
-.content{
-	width:100%;
-	padding:0 0 3px;
-	margin:0;
-	clear:both;
-	}
-.pane1{
-	width:400px;
-	height: 300px;
-	margin-left:30px;
-	margin-top:30px;
-	float:left;
-	background: #F8F8F8;
-	}
-.right{
-	display:block;
-	_width:auto;
-	_float:left;
-	}
-.right-top{
-	clear:right;
-	}
-.right-bottom{
-	height:auto;
-	}
-
-.left-rightsplit{
-	height:100%;
-	border:1px solid #9FBDD7;
-	height:auto;
-	}
-.marginright{
-	margin-right:3px;
-
-		}
 /* Essentials */
 
 html, div, map, dt, isindex, form, header, aside, section, section, article, footer {  
