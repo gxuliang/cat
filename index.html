@@ -658,7 +658,14 @@
 <article class="module width_full" id="camconf">
 			<header><h3>摄像头属性</h3>
 			</header>
-			<table class="tablesorter" cellspacing="0"> 
+			
+			<div class="pane1 marginleft">
+			<fieldset>
+					video区域
+				</fieldset>
+			</div>
+			<div id="" class="right marginleft marginright">
+			<table cellspacing="0"> 
 			<tbody>
 				<tr> 
     				<td>亮度</td> 
@@ -681,14 +688,98 @@
    					<td></td> 
    				</tr>	
    				<tr> 
-   					<td>slider</td> 
-    				<td><input id="defaultSlider" type="range" min="0" max="500" />
-	    				<p class="note">Current value: <span id="currentValue">0</span></p>
-    				</td> 
+   					<td>锐度</td> 
+    				<td><input id="ruidu" type="text" style="width:20%;" value="10"></td> 
    					<td></td> 
-   				</tr>					
+   				</tr>	
+   				<tr> 
+   					<td>防闪烁</td> 
+    				<td><select style="width:50%;">
+							<option>室外</option>
+							<option>50HZ</option>
+							<option>60HZ</option>
+						</select></td> 
+   					<td></td> 
+   				</tr>			
+   				<tr> 
+   					<td>曝光模式</td> 
+    				<td><select style="width:50%;">
+							<option>自动模式</option>
+							<option>低噪声模式</option>
+							<option>防拖影模式</option>
+							<option>手动模式</option>
+						</select><input id="baoguangzhi" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>		
+   				<tr> 
+   					<td>增益范围</td> 
+    				<td><input id="zymin" type="text" style="width:20%;" value="0">
+    				<input id="zymax" type="text" style="width:20%;" value="10"></td> 
+   					<td></td> 
+   				</tr>		
+   				<tr> 
+   					<td>自动光圈</td> 
+    				<td><input type="checkbox"></td> 
+   					<td></td> 
+   				</tr>		
+   				<tr> 
+   					<td>白平衡模式</td> 
+    				<td><select style="width:50%;">
+							<option>自动</option>
+							<option>晴天</option>
+							<option>晚上</option>
+							<option>关闭</option>
+						</select></td> 
+   					<td></td> 
+   				</tr>		
+   				<tr> 
+   					<td>日/夜模式</td> 
+    				<td><select style="width:50%;">
+							<option>自动</option>
+							<option>彩色</option>
+							<option>黑白</option>
+						</select></td> 
+   					<td></td> 
+   				</tr>	
+   				<tr> 
+   					<td>背光补偿</td> 
+    				<td><select style="width:50%;">
+							<option>关闭</option>
+							<option>背光补偿</option>
+							<option>数字宽动态</option>
+							<option>强光抑制</option>
+						</select></td> 
+   					<td></td> 
+   				</tr>	
+   				<tr> 
+   					<td>是否镜像</td> 
+    				<td><input type="checkbox"></td> 
+   					<td></td> 
+   				</tr>
+   				<tr> 
+   					<td>翻转</td> 
+    				<td><select style="width:50%;">
+							<option>关闭</option>
+							<option>旋转90°</option>
+							<option>旋转180°</option>
+							<option>旋转270°</option>
+						</select></td> 
+   					<td></td> 
+   				</tr>		
+   				<tr>
+   					<td></td> 
+    				<td>
+	   					<input type="submit" value="恢复默认">
+	   					<input type="submit" value="确定" class="alt_btn">
+	   					<input type="submit" value="取消">
+    				</td> 
+    				
+    				<td></td> 
+				</tr> 
 			</tbody>
 			</table>
+		</div>
+	
 		</article>
 
 
